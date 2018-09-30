@@ -28,7 +28,7 @@ int main()
   auto powers = filtered | Map([]( const int item ){ return item * item; });
   std::cout << powers << '\n';
 
-  auto sum = powers | Reduce([]( const int left, const int right ){ return left + right; }); 
+  auto sum = powers | Reduce([]( const int left, const int right ){ return left + right; }, 0); 
   std::cout << sum << '\n';
   return 0;
 }

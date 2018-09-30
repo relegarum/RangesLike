@@ -1,20 +1,25 @@
 #pragma once
 #include <numeric>
+#include <type_traits>
 
-template< class PredicateT >
+template< class PredicateT, class StartT >
 struct Reduce
 {
-  constexpr Reduce(PredicateT predicate)
-  : m_predicate(predicate)
+  using value_type = StartT;
+  constexpr Reduce(PredicateT predicate, StartT start = StartT())
+  : m_predicate(std::move(predicate)),
+  m_start(start)
   {
   }
 
   PredicateT m_predicate;
+  StartT m_start;
 };
 
 
-template< class ContainerT, class PredicateT >
-typename ContainerT::value_type operator|(const ContainerT& container, Reduce< PredicateT > reduce)
+template< class ContainerT, class PredicateT, class StartT = typename ContainerT::value_type >
+typename ContainerT::value_type operator|( const ContainerT& container,
+                                           Reduce< PredicateT, StartT > reduce )
 {
-  return std::accumulate(std::begin(container), std::end(container), typename ContainerT::value_type(), reduce.m_predicate);
+  return std::accumulate(std::begin(container), std::end(container), reduce.m_start, reduce.m_predicate);
 }

@@ -5,7 +5,7 @@ template< class PredicateT >
 struct Map
 {
   constexpr Map(PredicateT predicate)
-  :m_predicate(predicate)
+  :m_predicate(std::move(predicate))
   {
   }
 
