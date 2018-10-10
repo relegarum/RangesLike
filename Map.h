@@ -16,7 +16,7 @@ namespace like
 
 
   template< class ContainerT, class PredicateT >
-  constexpr ContainerT operator|(const ContainerT container, Map< PredicateT > map)
+  constexpr ContainerT operator|(const ContainerT& container, Map< PredicateT > map)
   {
     ContainerT aux;
     std::transform(std::begin(container), std::end(container), std::back_inserter(aux), map.m_predicate);

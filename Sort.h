@@ -9,7 +9,7 @@ namespace like
   };
 
   template< class ContainerT >
-  constexpr ContainerT operator|(const ContainerT container, const Sort&)
+  constexpr ContainerT operator|(const ContainerT& container, const Sort&)
   {
     ContainerT aux = container;
     std::sort(std::begin(aux), std::end(aux));
